@@ -1,5 +1,6 @@
 package com.tpi.TP.services;
 
+import com.tpi.TP.DTOs.UbicacionDTO;
 import com.tpi.TP.Repositories.EstacionRepository;
 import com.tpi.TP.models.Estacion;
 import com.tpi.TP.DTOs.EstacionDTO;
@@ -67,5 +68,38 @@ public class EstacionService {
         estacionDTO.setLongitud(estacion.getLongitud());
         estacionDTO.setFechaHoraCreacion(estacion.getFechaHoraCreacion());
         return estacionDTO;
+    }
+
+    public EstacionDTO findEstacionMasCercana(UbicacionDTO ubicacionDTO) {
+        List<Estacion> estaciones = estacionRepository.findAll();
+        Estacion estacionMasCercana = null;
+        double distanciaMasCorta = 100.00; //Se establece una distancia genérica muy grande para comparar
+
+        for (Estacion estacion : estaciones) {
+            double estacionLatitud = estacion.getLatitud();
+            double estacionLongitud = estacion.getLongitud();
+
+            double distancia = calcularDistancia(ubicacionDTO.getLatitud(), ubicacionDTO.getLongitud(), estacionLatitud, estacionLongitud);
+
+            if (distancia < distanciaMasCorta) {
+                distanciaMasCorta = distancia;
+                estacionMasCercana = estacion;
+            }
+        }
+
+        return convertToDto(estacionMasCercana);
+    }
+
+    // Calcular la distancia entre dos puntos geográficos
+    // d = √((x2 - x1)² + (y2 - y1)²
+    private double calcularDistancia(double lat1, double lon1, double lat2, double lon2) {
+
+        double diferenciaLatitud = lat1 - lat2;
+        double diferenciaLongitud = lon2 - lon1;
+
+        // Aplicar el teorema de Pitágoras
+        double distancia = Math.sqrt(Math.pow(diferenciaLatitud,2)+ Math.pow(diferenciaLongitud,2));
+
+        return distancia;
     }
 }

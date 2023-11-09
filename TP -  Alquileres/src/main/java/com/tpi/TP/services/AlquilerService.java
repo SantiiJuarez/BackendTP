@@ -3,6 +3,7 @@ package com.tpi.TP.services;
 import com.tpi.TP.DTOs.AlquilerDTO;
 import com.tpi.TP.Repositories.AlquilerRepository;
 import com.tpi.TP.models.Alquiler;
+import com.tpi.TP.models.Estacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,7 +69,24 @@ public class AlquilerService {
         return "Alquiler deleted";
     }
 
-    public String iniciarAlquiler(Long id){
-       return "dsa";
+
+    //PUNTO 3 - Iniciar el alquiler de una bicicleta desde una estación dada
+
+    public AlquilerDTO createAlquilerPorEstacion(AlquilerDTO alquilerDTO, Long idEstacion){
+        Alquiler alquiler = new Alquiler();
+        alquiler.setClienteId(alquilerDTO.getClienteId());
+        alquiler.setEstado(alquilerDTO.getEstado());
+
+        /*alquiler.setEstacionRetiro(alquilerDTO.getEstacionRetiro());*/
+
+        alquiler.setEstacionDevolucion(alquilerDTO.getEstacionDevolucion());
+        alquiler.setFechaHoraRetiro(alquilerDTO.getFechaHoraRetiro());
+        alquiler.setFechaHoraDevolucion(alquilerDTO.getFechaHoraDevolucion());
+        alquiler.setMonto(alquilerDTO.getMonto());
+        alquiler.setTarifaId(alquilerDTO.getTarifaId());
+        alquiler = alquilerRepository.save(alquiler);
+        alquilerDTO.setAlquilerId(alquiler.getAlquilerId());
+        return alquilerDTO;
     }
+
 }

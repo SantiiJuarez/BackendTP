@@ -36,7 +36,7 @@ public class GWConfig {
                         .hasRole("USUARIO")
 
                         .pathMatchers("/api/estaciones/**")
-                        .hasRole("ADMIN")
+                        .hasAnyRole()
 
                         // Cualquier otra petición...
                         .anyExchange()

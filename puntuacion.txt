@@ -1,0 +1,25 @@
+gateway -routes *1 Punto*
+	-security 
+		-kayloak *5 Puntos*
+		-admin
+		-usuario (cliente)
+estaciones
+	-crud
+		-POST create *2 Puntos*
+		-GET
+			-findAll *1 Punto*
+			-findById *2 Puntos*
+			-findBy(filters) *5 Puntos*
+				-ubicacion *****
+		-DELETE borrar *1 Punto*
+		-PUT updateById *2 Puntos
+alquileres	
+	Inicial Alquiler (POST) *2 Puntos*
+	Finalizar alquiler (PUT) * Puntos* *******
+		-Clculo del precio normal *5 Puntos*
+		-Calcular monto adicional por kilometro *3 Puntos*
+		-Aplicar descuentos *3 Puntos*
+	Listar alquielres (GET)
+		-filtros ******
+			-ByCliente *2 Puntos*
+		-All *1 Puntos*

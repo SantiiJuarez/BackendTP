@@ -1,7 +1,7 @@
 package com.tpi.TP.controllers;
 
 import com.tpi.TP.DTOs.EstacionDTO;
-import com.tpi.TP.DTOs.NewEstacionDTO;
+import com.tpi.TP.DTOs.UbicacionDTO;
 import com.tpi.TP.services.EstacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +19,12 @@ public class EstacionController {
     public ResponseEntity<List<EstacionDTO>> getAll(){
         List<EstacionDTO> estaciones = estacionService.findAll();
         return ResponseEntity.ok(estaciones);
+    }
+
+    @GetMapping("findEstacionByUbication")
+    public ResponseEntity<EstacionDTO> findById(@RequestBody UbicacionDTO ubicacionDTO){
+        EstacionDTO estacion = estacionService.findEstacionMasCercana(ubicacionDTO);
+        return ResponseEntity.ok(estacion);
     }
 
     @GetMapping("findEstacionById/{id}")
