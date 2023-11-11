@@ -10,7 +10,7 @@ estaciones
 			-findAll *1 Punto*
 			-findById *2 Puntos*
 			-findBy(filters) *5 Puntos*
-				-ubicacion *****
+				-ubicacion
 		-DELETE borrar *1 Punto*
 		-PUT updateById *2 Puntos
 alquileres	
@@ -20,6 +20,6 @@ alquileres
 		-Calcular monto adicional por kilometro *3 Puntos*
 		-Aplicar descuentos *3 Puntos*
 	Listar alquielres (GET)
-		-filtros ******
+		-filtros
 			-ByCliente *2 Puntos*
 		-All *1 Puntos*

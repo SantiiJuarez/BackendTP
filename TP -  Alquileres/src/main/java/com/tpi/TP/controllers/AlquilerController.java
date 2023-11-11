@@ -1,5 +1,6 @@
 package com.tpi.TP.controllers;
 
+import com.tpi.TP.DTOs.AlquilerCreadoDTO;
 import com.tpi.TP.DTOs.AlquilerDTO;
 import com.tpi.TP.services.AlquilerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,16 @@ public class AlquilerController {
         return ResponseEntity.ok(alquileres);
     }
 
-    @PostMapping("create")
-    public ResponseEntity<AlquilerDTO> create(@RequestBody AlquilerDTO alquilerDTO){
-        AlquilerDTO alquiler = alquilerService.create(alquilerDTO);
+    @PostMapping("/create")
+    public ResponseEntity<AlquilerDTO> create(@RequestBody AlquilerCreadoDTO alquilerCreadoDTO){
+        AlquilerDTO alquiler = alquilerService.createAlquilerPorEstacion(alquilerCreadoDTO);
         return ResponseEntity.ok(alquiler);
+    }
+
+    @GetMapping("/getAlquileresByClienteId/{id}")
+    public ResponseEntity<List<AlquilerDTO>> getAlquileresByClienteId(@PathVariable Long id){
+        List<AlquilerDTO> alquileres = alquilerService.findAlquileresById(id);
+        return ResponseEntity.ok(alquileres);
     }
 
     @PutMapping("/update/{id}")

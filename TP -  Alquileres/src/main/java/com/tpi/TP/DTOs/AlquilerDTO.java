@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -16,8 +17,8 @@ public class AlquilerDTO {
     private int estado;
     private Estacion estacionRetiro;
     private Estacion estacionDevolucion;
-    private LocalDate fechaHoraRetiro;
-    private LocalDate fechaHoraDevolucion;
+    private LocalDateTime fechaHoraRetiro;
+    private LocalDateTime fechaHoraDevolucion;
     private double monto;
-    private long tarifaId;
+    long tarifaId;
 }

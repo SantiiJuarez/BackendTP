@@ -73,13 +73,14 @@ public class EstacionService {
     public EstacionDTO findEstacionMasCercana(UbicacionDTO ubicacionDTO) {
         List<Estacion> estaciones = estacionRepository.findAll();
         Estacion estacionMasCercana = null;
-        double distanciaMasCorta = 100.00; //Se establece una distancia genérica muy grande para comparar
+        double distanciaMasCorta = 100.00 * 110000; //Se establece una distancia genérica muy grande para comparar
+        //110000 son los MetrosxGrado
 
         for (Estacion estacion : estaciones) {
             double estacionLatitud = estacion.getLatitud();
             double estacionLongitud = estacion.getLongitud();
 
-            double distancia = calcularDistancia(ubicacionDTO.getLatitud(), ubicacionDTO.getLongitud(), estacionLatitud, estacionLongitud);
+            double distancia = calcularDistancia(ubicacionDTO.getLatitud(), ubicacionDTO.getLongitud(), estacionLatitud, estacionLongitud) * 110000;
 
             if (distancia < distanciaMasCorta) {
                 distanciaMasCorta = distancia;

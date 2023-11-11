@@ -27,7 +27,7 @@ public class GWConfig {
 
     }
 
-    @Bean
+    /**@Bean
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws Exception {
         http.authorizeExchange(exchanges -> exchanges
 
@@ -65,6 +65,6 @@ public class GWConfig {
         // jwtAuthenticationConverter.setPrincipalClaimName("user_name");
 
         return jwtAuthenticationConverter;
-    }
+    }**/
 }
 

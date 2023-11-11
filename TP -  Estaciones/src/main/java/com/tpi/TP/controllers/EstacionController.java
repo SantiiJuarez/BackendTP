@@ -3,6 +3,7 @@ package com.tpi.TP.controllers;
 import com.tpi.TP.DTOs.EstacionDTO;
 import com.tpi.TP.DTOs.UbicacionDTO;
 import com.tpi.TP.services.EstacionService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,36 +16,28 @@ public class EstacionController {
     @Autowired
     private EstacionService estacionService;
 
+    @Operation(summary = "Devuelve todas las estaciones del sistema")
     @GetMapping("/allEstaciones")
     public ResponseEntity<List<EstacionDTO>> getAll(){
         List<EstacionDTO> estaciones = estacionService.findAll();
         return ResponseEntity.ok(estaciones);
     }
 
+    @Operation(summary = "Devuelve la estación más cercana en base a una ubicación ingresada")
     @GetMapping("findEstacionByUbication")
     public ResponseEntity<EstacionDTO> findById(@RequestBody UbicacionDTO ubicacionDTO){
         EstacionDTO estacion = estacionService.findEstacionMasCercana(ubicacionDTO);
         return ResponseEntity.ok(estacion);
     }
 
+    @Operation(summary = "Devuelve la estación correspondiente al Id ingresado")
     @GetMapping("findEstacionById/{id}")
     public ResponseEntity<EstacionDTO> findById(@PathVariable Long id){
         EstacionDTO estacion = estacionService.getById(id);
         return ResponseEntity.ok(estacion);
     }
 
-    @GetMapping("findEstacionByCiudad/{id}")
-    public ResponseEntity<String> findByCiudad(@PathVariable Long id){
-        String response = "find by Ciudad";
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("findEstacionByUbicacion/{id}")
-    public ResponseEntity<String> update(@PathVariable  Long id){
-        String response = "find by Ubicacion";
-        return ResponseEntity.ok(response);
-    }
-
+    @Operation(summary = "Crea una estación nueva al sistema")
     @PostMapping("createEstacion")
     public ResponseEntity<EstacionDTO> create(@RequestBody EstacionDTO estacionDTO){
         EstacionDTO estacion = estacionService.create(estacionDTO);
@@ -52,6 +45,7 @@ public class EstacionController {
         return ResponseEntity.ok(estacion);
     }
 
+    @Operation(summary = "Actualiza la estación correspondiente al Id ingresado")
     @PutMapping("/updateEstacion/{id}")
     public ResponseEntity<EstacionDTO> updateEstacion(@PathVariable Long id, @RequestBody EstacionDTO estacionDTO) {
         EstacionDTO updatedEstacion = estacionService.update(id,estacionDTO);
@@ -62,6 +56,7 @@ public class EstacionController {
         }
     }
 
+    @Operation(summary = "Elimina la estación correspondiente al Id ingresado")
     @DeleteMapping("/deleteEstacion/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         String response = estacionService.delete(id);
