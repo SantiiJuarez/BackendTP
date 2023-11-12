@@ -32,12 +32,21 @@ public class GWConfig {
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws Exception {
         http.authorizeExchange(exchanges -> exchanges
 
-                        // Esta ruta puede ser accedida por cualquiera, sin autorización
-                        .pathMatchers("/api/alquiler/**", "api,estacion/**")
+
+                        .pathMatchers("/api/estacion/allEstaciones",
+                                "/api/estacion/findEstacionByUbication",
+                                "api/estacion/findEstacionById/**",
+                                "api/alquiler/create",
+                                "api/alquiler/update")
                         .hasRole("USUARIO")
 
-                        //.pathMatchers("/api/estacion/**")
-                        //.hasRole("ADMIN")
+                        .pathMatchers("/api/estacion/createEstacion",
+                                "/api/estacion/updateEstacion/**",
+                                "/api/estacion/deleteEstacion/**",
+                                "api/alquiler/allAlquileres",
+                                "api/alquiler/getAlquileresByClienteId",
+                                "api/alquiler/delete")
+                        .hasRole("ADMIN")
 
                         // Cualquier otra petición...
                         .anyExchange()
