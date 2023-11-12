@@ -33,11 +33,11 @@ public class GWConfig {
         http.authorizeExchange(exchanges -> exchanges
 
                         // Esta ruta puede ser accedida por cualquiera, sin autorización
-                        .pathMatchers("/api/alquiler/**")
+                        .pathMatchers("/api/alquiler/**", "api,estacion/**")
                         .hasRole("USUARIO")
 
-                        .pathMatchers("/api/estacion/**")
-                        .hasRole("ADMIN")
+                        //.pathMatchers("/api/estacion/**")
+                        //.hasRole("ADMIN")
 
                         // Cualquier otra petición...
                         .anyExchange()
