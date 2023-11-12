@@ -1,16 +1,17 @@
 package com.example.TPGateway.config;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.oauth2.server.resource.authentication.ReactiveJwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.ReactiveJwtGrantedAuthoritiesConverterAdapter;
-import org.springframework.security.web.server.SecurityWebFilterChain;
+
 
 
 @Configuration
@@ -18,25 +19,25 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 public class GWConfig {
 
     @Bean
-    public RouteLocator configurarRutas (RouteLocatorBuilder builder){
+    public RouteLocator configurarRutas (RouteLocatorBuilder builder,
+                                         @Value("${url-alquileres}") String uriAlquileres,
+                                         @Value("${url-estaciones}") String uriEstaciones){
         return builder.routes()
-                //Test para ver si funciona
-                .route(p -> p.path("/get/**")
-                        .uri("https://google.com"))
+                .route(p -> p.path("/api/alquiler/**").uri(uriAlquileres))
+                .route(p -> p.path("/api/estacion/**").uri(uriEstaciones))
                 .build();
-
     }
 
-    /**@Bean
+    @Bean
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws Exception {
         http.authorizeExchange(exchanges -> exchanges
 
                         // Esta ruta puede ser accedida por cualquiera, sin autorización
-                        .pathMatchers("/get/**")
+                        .pathMatchers("/api/alquiler/**")
                         .hasRole("USUARIO")
 
-                        .pathMatchers("/api/estaciones/**")
-                        .hasAnyRole()
+                        .pathMatchers("/api/estacion/**")
+                        .hasRole("ADMIN")
 
                         // Cualquier otra petición...
                         .anyExchange()
@@ -65,6 +66,5 @@ public class GWConfig {
         // jwtAuthenticationConverter.setPrincipalClaimName("user_name");
 
         return jwtAuthenticationConverter;
-    }**/
+    }
 }
-
