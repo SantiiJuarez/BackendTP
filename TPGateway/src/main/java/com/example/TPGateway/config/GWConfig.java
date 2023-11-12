@@ -44,8 +44,8 @@ public class GWConfig {
                                 "/api/estacion/updateEstacion/**",
                                 "/api/estacion/deleteEstacion/**",
                                 "api/alquiler/allAlquileres",
-                                "api/alquiler/getAlquileresByClienteId",
-                                "api/alquiler/delete")
+                                "api/alquiler/getAlquileresByClienteId/**",
+                                "api/alquiler/delete/**")
                         .hasRole("ADMIN")
 
                         // Cualquier otra petición...
