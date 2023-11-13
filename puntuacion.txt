@@ -15,10 +15,11 @@ estaciones
 		-PUT updateById *2 Puntos
 alquileres	
 	Inicial Alquiler (POST) *2 Puntos*
-	Finalizar alquiler (PUT) * Puntos* *******
+	Finalizar alquiler (PUT) * Puntos
 		-Clculo del precio normal *5 Puntos*
 		-Calcular monto adicional por kilometro *3 Puntos*
 		-Aplicar descuentos *3 Puntos*
+
 	Listar alquielres (GET)
 		-filtros
 			-ByCliente *2 Puntos*

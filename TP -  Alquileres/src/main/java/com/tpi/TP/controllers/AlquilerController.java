@@ -2,6 +2,7 @@ package com.tpi.TP.controllers;
 
 import com.tpi.TP.DTOs.AlquilerCreadoDTO;
 import com.tpi.TP.DTOs.AlquilerDTO;
+import com.tpi.TP.DTOs.AlquilerFinalizadoDTO;
 import com.tpi.TP.services.AlquilerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class AlquilerController {
         return ResponseEntity.ok(alquileres);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/createAlquiler")
     public ResponseEntity<AlquilerDTO> create(@RequestBody AlquilerCreadoDTO alquilerCreadoDTO){
         AlquilerDTO alquiler = alquilerService.createAlquilerPorEstacion(alquilerCreadoDTO);
         return ResponseEntity.ok(alquiler);
@@ -33,9 +34,9 @@ public class AlquilerController {
         return ResponseEntity.ok(alquileres);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<AlquilerDTO> updateAlquiler(@PathVariable Long id, @RequestBody AlquilerDTO alquilerDTO) {
-        AlquilerDTO updateAlquiler = alquilerService.update(id, alquilerDTO);
+    @PutMapping("/updateAlquiler")
+    public ResponseEntity<AlquilerDTO> updateAlquiler(@RequestBody AlquilerFinalizadoDTO alquilerFinalizadoDTO) {
+        AlquilerDTO updateAlquiler = alquilerService.updateAlquiler(alquilerFinalizadoDTO);
         if (updateAlquiler != null){
             return ResponseEntity.ok(updateAlquiler);
         } else {

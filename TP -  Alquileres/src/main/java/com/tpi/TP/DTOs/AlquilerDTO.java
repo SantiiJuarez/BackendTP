@@ -20,5 +20,5 @@ public class AlquilerDTO {
     private LocalDateTime fechaHoraRetiro;
     private LocalDateTime fechaHoraDevolucion;
     private double monto;
-    long tarifaId;
+    private long tarifaId;
 }

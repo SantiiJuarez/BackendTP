@@ -23,16 +23,16 @@ public class Tarifas {
     private String definicion;
 
     @Column(name = "Dia_semana")
-    private int diaSemana;
+    private Integer diaSemana;
 
     @Column(name = "Dia_mes")
-    private int diaMes;
+    private Integer diaMes;
 
     @Column(name = "Mes")
-    private int mes;
+    private Integer mes;
 
     @Column(name = "Anio")
-    private int anio;
+    private Integer anio;
 
     @Column(name = "Monto_fijo_alquiler")
     private int montoFijoAlquiler;

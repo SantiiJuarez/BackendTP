@@ -1,7 +1,6 @@
 package com.tpi.TP.controllers;
 
 import com.tpi.TP.DTOs.EstacionDTO;
-import com.tpi.TP.DTOs.UbicacionDTO;
 import com.tpi.TP.services.EstacionService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,8 @@ public class EstacionController {
 
     @Operation(summary = "Devuelve la estación más cercana en base a una ubicación ingresada")
     @GetMapping("findEstacionByUbication")
-    public ResponseEntity<EstacionDTO> findById(@RequestBody UbicacionDTO ubicacionDTO){
-        EstacionDTO estacion = estacionService.findEstacionMasCercana(ubicacionDTO);
+    public ResponseEntity<EstacionDTO> findById(@RequestParam double latitud, double longitud){
+        EstacionDTO estacion = estacionService.findEstacionMasCercana(latitud, longitud);
         return ResponseEntity.ok(estacion);
     }
 
@@ -61,6 +60,13 @@ public class EstacionController {
     public ResponseEntity<String> delete(@PathVariable Long id) {
         String response = estacionService.delete(id);
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Devuelve la distancia entre estaciones")
+    @GetMapping("/getDistancia/{id1}/{id2}")
+    public ResponseEntity<Double> calcularDistancia(@PathVariable Long id1,@PathVariable Long id2){
+        Double distancia = estacionService.findDistanciaByEstaciones(id1, id2);
+        return ResponseEntity.ok(distancia);
     }
 
 }

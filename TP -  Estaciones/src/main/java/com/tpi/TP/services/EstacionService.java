@@ -1,6 +1,5 @@
 package com.tpi.TP.services;
 
-import com.tpi.TP.DTOs.UbicacionDTO;
 import com.tpi.TP.Repositories.EstacionRepository;
 import com.tpi.TP.models.Estacion;
 import com.tpi.TP.DTOs.EstacionDTO;
@@ -70,17 +69,18 @@ public class EstacionService {
         return estacionDTO;
     }
 
-    public EstacionDTO findEstacionMasCercana(UbicacionDTO ubicacionDTO) {
+    public EstacionDTO findEstacionMasCercana(double latitud, double longitud) {
         List<Estacion> estaciones = estacionRepository.findAll();
         Estacion estacionMasCercana = null;
-        double distanciaMasCorta = 100.00 * 110000; //Se establece una distancia genérica muy grande para comparar
+        double distanciaMasCorta = (100.00 * 110000)/1000; //Se establece una distancia genérica muy grande para comparar
         //110000 son los MetrosxGrado
+        //Se divide entre 1000 para expresar la distancia en Km
 
         for (Estacion estacion : estaciones) {
             double estacionLatitud = estacion.getLatitud();
             double estacionLongitud = estacion.getLongitud();
 
-            double distancia = calcularDistancia(ubicacionDTO.getLatitud(), ubicacionDTO.getLongitud(), estacionLatitud, estacionLongitud) * 110000;
+            double distancia = (calcularDistancia(latitud, longitud, estacionLatitud, estacionLongitud) * 110000) / 1000;
 
             if (distancia < distanciaMasCorta) {
                 distanciaMasCorta = distancia;
@@ -89,6 +89,22 @@ public class EstacionService {
         }
 
         return convertToDto(estacionMasCercana);
+    }
+
+
+    public Double findDistanciaByEstaciones(long estacion1, long estacion2){
+
+        Estacion estacionRetiro = estacionRepository.findById(estacion1).get();
+        Estacion estacionDevolucion = estacionRepository.findById(estacion2).get();
+        double estacionLatitudRetiro = estacionRetiro.getLatitud();
+
+        double estacionLongitudRetiro = estacionRetiro.getLongitud();
+
+        double estacionLatitudDevolucion = estacionDevolucion.getLatitud();
+        double estacionLongitudDevolucion = estacionDevolucion.getLongitud();
+
+        double distancia = (calcularDistancia(estacionLatitudRetiro, estacionLongitudRetiro, estacionLatitudDevolucion, estacionLongitudDevolucion) * 110000) / 1000;
+        return distancia;
     }
 
     // Calcular la distancia entre dos puntos geográficos
